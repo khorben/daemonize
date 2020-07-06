@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# PROVIDE: FIXME
+# REQUIRE: DAEMON
+
+$_rc_subr_loaded . /etc/rc.subr
+
+name="FIXME"
+rcvar=$name
+command="/usr/local/bin/${name}"
+pidfile="/var/run/${name}.pid"
+
+load_rc_config $name
+run_rc_command "$1"
