@@ -90,10 +90,10 @@ static int _daemonize_prefs(DaemonizePrefs * prefs)
 		return _daemonize_error(prefs->groupname);
 	if(prefs->pidfile != NULL && (fp = fopen(prefs->pidfile, "w")) == NULL)
 		return _daemonize_error(prefs->pidfile);
-	if(gr != NULL && setegid(gr->gr_gid) != 0)
-		_daemonize_error("setegid");
-	if(pw != NULL && seteuid(pw->pw_uid) != 0)
-		_daemonize_error("seteuid");
+	if(gr != NULL && (setgid(gr->gr_gid) != 0 || setegid(gr->gr_gid) != 0))
+		_daemonize_error("set(e)gid");
+	if(pw != NULL && (setuid(pw->pw_uid) != 0 || seteuid(pw->pw_uid) != 0))
+		_daemonize_error("set(e)uid");
 	if(prefs->daemon && daemon(0, 0) != 0)
 	{
 		if(fp != NULL)
