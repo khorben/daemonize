@@ -7,7 +7,7 @@ $_rc_subr_loaded . /etc/rc.subr
 
 name="FIXME"
 rcvar=$name
-command="/usr/local/bin/${name}"
+command="/usr/local/sbin/${name}"
 pidfile="/var/run/${name}.pid"
 
 load_rc_config $name
