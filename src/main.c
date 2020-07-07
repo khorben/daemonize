@@ -70,8 +70,10 @@ int main(int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME_DAEMONIZE " [-F][-p filename] program [args...]\n"
+	fputs("Usage: " PROGNAME_DAEMONIZE " [-F][-p filename][-u username][-g group] program [args...]\n"
 			"  -F	Run in foreground\n"
-			"  -p	Set the PID file\n", stderr);
+			"  -g	Use the privileges of this group\n"
+			"  -p	Set the PID file\n"
+			"  -u	Use the privileges of this user\n", stderr);
 	return 1;
 }
