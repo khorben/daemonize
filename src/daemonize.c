@@ -21,11 +21,8 @@
 #include <grp.h>
 #include <pwd.h>
 #include <errno.h>
+#include "common.h"
 #include "daemonize.h"
-
-#ifndef PROGNAME_DAEMONIZE
-# define PROGNAME_DAEMONIZE	"daemonize"
-#endif
 
 
 /* Daemonize */

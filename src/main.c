@@ -17,11 +17,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include "common.h"
 #include "daemonize.h"
-
-#ifndef PROGNAME_DAEMONIZE
-# define PROGNAME_DAEMONIZE	"daemonize"
-#endif
 
 
 /* main */
