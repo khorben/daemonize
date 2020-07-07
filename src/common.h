@@ -23,4 +23,4 @@
 # define PROGNAME_DAEMONIZE	"daemonize"
 #endif
 
-#endif
+#endif /* !DAEMONIZE_COMMON_H */

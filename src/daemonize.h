@@ -33,4 +33,4 @@ typedef struct _DaemonizePrefs
 /* functions */
 int daemonize(DaemonizePrefs * prefs, char * program, int argc, char * argv[]);
 
-#endif
+#endif /* !DAEMONIZE_DAEMONIZE_H */
