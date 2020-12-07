@@ -29,13 +29,14 @@
 /* private */
 /* prototypes */
 static int _daemonize_error(char const * message);
-static int _daemonize_prefs(DaemonizePrefs * prefs);
+static int _daemonize_prefs(DaemonizePrefs const * prefs);
 
 
 /* public */
 /* functions */
 /* daemonize */
-int daemonize(DaemonizePrefs * prefs, char * program, int argc, char * argv[])
+int daemonize(DaemonizePrefs const * prefs, char const * program,
+		int argc, char * argv[])
 {
 	char ** args;
 	int i;
@@ -74,7 +75,7 @@ static int _daemonize_error(char const * message)
 
 
 /* daemonize_prefs */
-static int _daemonize_prefs(DaemonizePrefs * prefs)
+static int _daemonize_prefs(DaemonizePrefs const * prefs)
 {
 	struct passwd * pw = NULL;
 	struct group * gr = NULL;
