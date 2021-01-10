@@ -37,9 +37,12 @@ int main(int argc, char * argv[])
 
 	memset(&prefs, 0, sizeof(prefs));
 	prefs.daemon = 1;
-	while((o = getopt(argc, argv, "Fg:p:u:")) != -1)
+	while((o = getopt(argc, argv, "BFg:p:u:")) != -1)
 		switch(o)
 		{
+			case 'B':
+				prefs.daemon = 1;
+				break;
 			case 'F':
 				prefs.daemon = 0;
 				break;
@@ -67,7 +70,8 @@ int main(int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME_DAEMONIZE " [-F][-p filename][-u username][-g group] program [args...]\n"
+	fputs("Usage: " PROGNAME_DAEMONIZE " [-BF][-p filename][-u username][-g group] program [args...]\n"
+			"  -B	Run in background\n"
 			"  -F	Run in foreground\n"
 			"  -g	Use the privileges of this group\n"
 			"  -p	Set the PID file\n"
