@@ -6,7 +6,8 @@ About daemonize
 
 daemonize is a helper to turn regular commands into background services.
 
-daemonize is distributed under the terms of the GNU GPL License (version 3).
+daemonize is distributed under the terms of the 2-clause BSD license. Please
+refer to the `COPYING` file for more information.
 
 
 Compiling daemonize
