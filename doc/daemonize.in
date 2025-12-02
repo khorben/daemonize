@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# PROVIDE: FIXME
+# PROVIDE: @@SERVICE_NAME@@
 # REQUIRE: DAEMON
 
 $_rc_subr_loaded . /etc/rc.subr
 
-name="FIXME"
+name="@@SERVICE_NAME@@"
 rcvar=$name
 command="@SBINDIR@/daemonize"
 pidfile="/var/run/${name}.pid"
