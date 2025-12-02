@@ -191,7 +191,11 @@ static int _prefs_setgroups(char const * username)
 	gid_t * groups = NULL;
 	gid_t * p;
 
+#ifdef __linux__
+	setgrent();
+#else
 	setgroupent(1);
+#endif
 	while((gr = getgrent()) != NULL)
 		for(i = 0; gr->gr_mem[i] != NULL; i++)
 		{
