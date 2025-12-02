@@ -37,6 +37,7 @@
 typedef struct _DaemonizePrefs
 {
 	int daemon;
+	char const * chdir;
 	char const * username;
 	char const * groupname;
 	char const * pidfile;

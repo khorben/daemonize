@@ -51,7 +51,8 @@ int main(int argc, char * argv[])
 
 	memset(&prefs, 0, sizeof(prefs));
 	prefs.daemon = 1;
-	while((o = getopt(argc, argv, "BFg:p:u:")) != -1)
+	prefs.chdir = "/";
+	while((o = getopt(argc, argv, "BFc:g:p:u:")) != -1)
 		switch(o)
 		{
 			case 'B':
@@ -59,6 +60,9 @@ int main(int argc, char * argv[])
 				break;
 			case 'F':
 				prefs.daemon = 0;
+				break;
+			case 'c':
+				prefs.chdir = optarg;
 				break;
 			case 'g':
 				prefs.groupname = optarg;
@@ -84,7 +88,8 @@ int main(int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME_DAEMONIZE " [-BF][-p filename][-u username][-g group] program [args...]\n"
+	fputs("Usage: " PROGNAME_DAEMONIZE " [-BF][-c directory][-p filename][-u username][-g group] program [args...]\n"
+			"  -c	Set the working directory\n"
 			"  -B	Run in background\n"
 			"  -F	Run in foreground\n"
 			"  -g	Use the privileges of this group\n"

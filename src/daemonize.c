@@ -61,6 +61,8 @@ int daemonize(DaemonizePrefs const * prefs, char const * program,
 	fprintf(stderr, "DEBUG: %s(\"%s\", %d, \"%s\")\n", __func__, program,
 			argc, argv[0]);
 #endif
+	if(chdir(prefs->chdir) != 0)
+		return _daemonize_error(prefs->chdir);
 	if((args = malloc(sizeof(*args) * (argc + 2))) == NULL)
 		return _daemonize_error(NULL);
 	if(prefs != NULL && _daemonize_prefs(prefs, env) != 0)
