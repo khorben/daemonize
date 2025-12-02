@@ -51,7 +51,6 @@ int main(int argc, char * argv[])
 
 	memset(&prefs, 0, sizeof(prefs));
 	prefs.daemon = 1;
-	prefs.chdir = "/";
 	while((o = getopt(argc, argv, "BFc:g:p:u:")) != -1)
 		switch(o)
 		{
