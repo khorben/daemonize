@@ -51,7 +51,7 @@ int main(int argc, char * argv[])
 
 	memset(&prefs, 0, sizeof(prefs));
 	prefs.daemon = 1;
-	while((o = getopt(argc, argv, "BFc:g:p:u:")) != -1)
+	while((o = getopt(argc, argv, "BFc:g:l:p:u:")) != -1)
 		switch(o)
 		{
 			case 'B':
@@ -65,6 +65,9 @@ int main(int argc, char * argv[])
 				break;
 			case 'g':
 				prefs.groupname = optarg;
+				break;
+			case 'l':
+				prefs.logfile = optarg;
 				break;
 			case 'p':
 				prefs.pidfile = optarg;
@@ -87,12 +90,14 @@ int main(int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME_DAEMONIZE " [-BF][-c directory][-p filename][-u username][-g group] program [args...]\n"
-			"  -c	Set the working directory\n"
-			"  -B	Run in background\n"
-			"  -F	Run in foreground\n"
-			"  -g	Use the privileges of this group\n"
-			"  -p	Set the PID file\n"
-			"  -u	Use the privileges of this user\n", stderr);
+	fputs("Usage: " PROGNAME_DAEMONIZE " [-BF][-c directory][-l filename]"
+"[-p filename][-u username][-g group] program [args...]\n"
+"  -c	Set the working directory\n"
+"  -B	Run in background\n"
+"  -F	Run in foreground\n"
+"  -g	Use the privileges of this group\n"
+"  -l	Log file for the standard output and error\n"
+"  -p	Set the PID file\n"
+"  -u	Use the privileges of this user\n", stderr);
 	return 1;
 }

@@ -40,6 +40,7 @@ typedef struct _DaemonizePrefs
 	char const * chdir;
 	char const * username;
 	char const * groupname;
+	char const * logfile;
 	char const * pidfile;
 	int shuffle;
 } DaemonizePrefs;
