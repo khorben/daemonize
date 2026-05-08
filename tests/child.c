@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2020-2026 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2026 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of daemonize */
 /* All rights reserved.
  *
@@ -28,26 +28,22 @@
 
 
 
-#ifndef DAEMONIZE_DAEMONIZE_H
-# define DAEMONIZE_DAEMONIZE_H
+#include <unistd.h>
+#include <stdio.h>
+
+#ifndef PROGNAME_CHILD
+# define PROGNAME_CHILD "child"
+#endif
 
 
-/* Daemonize */
-/* types */
-typedef struct _DaemonizePrefs
-{
-	int daemon;
-	char const * chdir;
-	char const * username;
-	char const * groupname;
-	char const * logfile;
-	char const * pidfile;
-	int shuffle;
-} DaemonizePrefs;
-
-
+/* main */
+/* public */
 /* functions */
-int daemonize(DaemonizePrefs const * prefs, char const * program,
-		int argc, char * argv[]);
-
-#endif /* !DAEMONIZE_DAEMONIZE_H */
+/* main */
+int main(int argc, char * argv[])
+{
+	fprintf(stderr, "%s: stderr\n", PROGNAME_CHILD);
+	printf("%s: stdout\n", PROGNAME_CHILD);
+	sleep(1);
+	return 0;
+}

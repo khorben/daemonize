@@ -29,6 +29,7 @@
 
 
 #include <sys/param.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -77,6 +78,8 @@ int daemonize(DaemonizePrefs const * prefs, char const * program,
 		args[i + 1] = argv[i];
 	args[argc + 1] = NULL;
 	execve(program, args, env);
+	if(prefs->pidfile != NULL)
+		unlink(prefs->pidfile);
 	free(args[0]);
 	free(args);
 	free(env[0]);
@@ -106,6 +109,7 @@ static int _daemonize_prefs(DaemonizePrefs const * prefs, char ** env)
 	uid_t uid;
 	gid_t gid;
 	size_t len;
+	int fd = -1;
 	FILE * fp = NULL;
 	const char home[] = "HOME=";
 
@@ -136,6 +140,24 @@ static int _daemonize_prefs(DaemonizePrefs const * prefs, char ** env)
 			return _daemonize_error("malloc");
 		snprintf(env[0], sizeof(home) + len, "%s%s", home, pw->pw_dir);
 	}
+	/* open the log file before dropping permissions */
+	if(prefs->logfile != NULL)
+	{
+		if((fd = open(prefs->logfile, O_WRONLY | O_APPEND | O_CREAT,
+						0666)) < 0)
+		{
+			_daemonize_error(prefs->logfile);
+			return 2;
+		}
+		if(dup2(fd, STDOUT_FILENO) < 0 || dup2(fd, STDERR_FILENO) < 0)
+		{
+			_daemonize_error("dup2");
+			close(fd);
+			return 2;
+		}
+		close(STDIN_FILENO);
+		close(fd);
+	}
 	/* open the PID file before dropping permissions */
 	if(prefs->pidfile != NULL && (fp = fopen(prefs->pidfile, "w")) == NULL)
 	{
@@ -163,7 +185,8 @@ static int _daemonize_prefs(DaemonizePrefs const * prefs, char ** env)
 	/* actually daemonize */
 	if(prefs->daemon)
 	{
-		if(daemon((prefs->chdir != NULL) ? 1 : 0, 0) != 0)
+		if(daemon((prefs->chdir != NULL) ? 1 : 0,
+					(prefs->logfile != NULL) ? 1 : 0) != 0)
 			return _daemonize_error("daemon");
 		if(fp != NULL)
 			fclose(fp);
